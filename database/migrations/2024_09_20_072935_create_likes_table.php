@@ -10,18 +10,14 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('likes', function (Blueprint $table) {
-        $table->increments('like_id');
-        $table->integer('post_id')->unsigned();
-        $table->integer('user_id')->unsigned();
-        $table->datetime('created_at');
-        
-        // Зв'язки
-        $table->foreign('post_id')->references('post_id')->on('posts')->onDelete('cascade');
-        $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-    });
-}
+    {
+        Schema::create('likes', function (Blueprint $table) {
+            $table->id('like_id');
+            $table->foreignId('post_id')->constrained('posts', 'post_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
+            $table->timestamps(); // Замість datetime для created_at
+        });
+    }
 
     /**
      * Reverse the migrations.

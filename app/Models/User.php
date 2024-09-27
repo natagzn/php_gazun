@@ -16,8 +16,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    
+    protected $primaryKey = 'user_id';
+    
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -44,4 +47,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function likes()
+{
+    return $this->hasMany(Like::class, 'user_id');
+}
+
+public function comments()
+{
+    return $this->hasMany(Comment::class, 'user_id');
+}
 }

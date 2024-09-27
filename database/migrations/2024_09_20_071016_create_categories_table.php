@@ -10,13 +10,14 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('categories', function (Blueprint $table) {
-        $table->increments('category_id');
-        $table->string('name', 50);
-        $table->text('description')->nullable();
-    });
-}
+    {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id('category_id'); // Змінено на auto-increment
+            $table->string('name', 50);
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

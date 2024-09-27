@@ -10,19 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('comments', function (Blueprint $table) {
-        $table->increments('comment_id');
-        $table->integer('post_id')->unsigned();
-        $table->integer('user_id')->unsigned();
-        $table->text('content');
-        $table->datetime('created_at');
-        
-        // Зв'язки
-        $table->foreign('post_id')->references('post_id')->on('posts')->onDelete('cascade');
-        $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-    });
-}
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id('comment_id');
+            $table->foreignId('post_id')->constrained('posts', 'post_id')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
+            $table->text('content');
+            $table->timestamps(); // Замість datetime для created_at
+        });
+    }
 
     /**
      * Reverse the migrations.
