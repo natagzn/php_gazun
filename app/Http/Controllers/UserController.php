@@ -36,7 +36,11 @@ class UserController extends Controller
 
        // Валідація даних
     $request->validate([
-        'username' => 'required|string|max:50',
+        'username' => [
+            'required',
+            'string',
+            'max:50',
+        ],
         'email' => 'required|string|email|max:100|unique:users',
         'password' => 'required|string|min:6',
     ]);
@@ -50,7 +54,6 @@ class UserController extends Controller
 
     // Перенаправлення на список користувачів
     return redirect()->route('users.index')->with('success', 'User created successfully.');
-    //return response()->json(['message' => 'User created successfully']);
 
     }
 
